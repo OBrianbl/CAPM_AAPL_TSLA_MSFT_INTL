@@ -66,3 +66,6 @@ The is measure of market risk is one that cannot be avoid through diversificatio
 * <a href="https://www.codecogs.com/eqnedit.php?latex=\beta&space;<&space;1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\beta&space;<&space;1" title="\beta < 1" /></a>,  Asset is considered defensive since  these stocks will typically loose less. 
 * <a href="https://www.codecogs.com/eqnedit.php?latex=\beta&space;=&space;1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\beta&space;=&space;1" title="\beta = 1" /></a>,  Asset is considered to perform the same as the market.
 * <a href="https://www.codecogs.com/eqnedit.php?latex=\beta&space;>&space;1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\beta&space;>&space;1" title="\beta > 1" /></a>,  Asset is considered to be aggressive, since they are riskier than the market. These stocks perform better than the market when the economy is doing well and loose more when the market is not doing well.
+
+
+*** Still in progress... check back later today for an update ***
