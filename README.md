@@ -1,4 +1,4 @@
-# Capital Assest Pricing Model (CAPM)
+# Capital Asset Pricing Model (CAPM)
 
 Harry Markowitz met Bob Sharp in 1960 and offered Sharp the opportunity to continue his work on how various stocks function together. Sharp discovered the CAPM.
 
