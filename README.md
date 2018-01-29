@@ -12,7 +12,7 @@ Like the Markowitz, Sharp develops the CAPM under the following assumptions:
 
 <br>
 
-Sharpe then introduces the market portfolio concept. This market portfolio is constructed as a combination of all possible investments in the world (bonds and stocks). This allows for bundling of securities in such a way that maximizes risk-return, while optimizing (minimizing) risk due to be so diversified. Thus, this portfolio will lie on some point on the efficient frontier and is the most efficient portfolio.
+Sharpe then introduces the market portfolio concept. This market portfolio is constructed as a combination of all possible investments in the world (bonds and stocks). This allows for bundling of securities in such a way that maximizes risk-return, while optimizing (minimizing) risk due to being diversified. Thus, this portfolio will lie on some point on the efficient frontier and is the most efficient portfolio.
 
 <br>
 
