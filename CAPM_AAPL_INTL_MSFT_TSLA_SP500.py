@@ -144,7 +144,7 @@ for i in range(number_of_portfolios):
         results[x+3, i]  = weights[x]
     
 # results_df
-results_df = pd.DataFrame(results.T,columns=['return','stdev','sharpe',tickers[0],tickers[1],tickers[2],tickers[3]])
+results_df = pd.DataFrame(results.T,columns=['returns','stdev','sharpe',tickers[0],tickers[1],tickers[2],tickers[3]])
  
 # locate position of portfolio with highest Sharpe Ratio
 max_sharpe_portfolio = results_df.iloc[results_df['sharpe'].idxmax()]
@@ -153,7 +153,7 @@ max_sharpe_portfolio = results_df.iloc[results_df['sharpe'].idxmax()]
 min_volatility_portfolio = results_df.iloc[results_df['stdev'].idxmin()]
  
 #create scatter plot coloured by Sharpe Ratio
-plt.scatter(results_df.stdev,results_df.ret,c=results_df.sharpe,cmap='RdYlBu')
+plt.scatter(results_df.stdev,results_df.returns,c=results_df.sharpe,cmap='RdYlBu')
 plt.xlabel('Volatility')
 plt.ylabel('Returns')
 plt.title('Markowitz Efficient Frontier with Sharpe Ratio')
