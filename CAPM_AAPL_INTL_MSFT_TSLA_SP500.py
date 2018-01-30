@@ -1,24 +1,11 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Jan 29 11:11:56 2018
 
-@author: obria
-"""
-
-# -*- coding: utf-8 -*-
 """
 Created on Wed Jan 24 09:35:30 2018
 
 @author: Brandon O'Briant
 
-The problem definition: 
-   
-
-Research:
-    
-    
-Solution:
-   
+CAPM, Markowitz Efficient Frontier with Sharpe Ratio
     
 """
 # import packages to be used in the namespace
@@ -36,6 +23,8 @@ def init_plotting():
     plt.rcParams['axes.labelcolor'] = 'black'
     plt.rcParams['xtick.color']= 'black'
     plt.rcParams['ytick.color']= 'black'
+    plt.rcParams['axes.facecolor']='gainsboro'
+plt.rcParams['savefig.facecolor']='gainsboro'
 init_plotting()
 # avoid empty plot, always good to close plot
 plt.close() 
@@ -75,7 +64,7 @@ start_date = '2010-6-29'
 # tickers for stocks to be ustilized in this program
 # Apple Inc (AAPL), Microsoft (MSFT), Intel (INTL), Tesla Inc. (TSLA), 
 # SP500 market (^GSPC)
-tickers = ['AAPL', 'MSFT', 'INTL', 'TSLA', '^GSPC']
+tickers = ['AAPL', 'MSFT', 'INTL', 'TSLA']
 
 # securites_data, pandas DataFrame to store stock data
 # initialized to enmtpy DataFrame
@@ -103,41 +92,76 @@ print_head_tail_info_df(securities_data)
 # all stocks as if they all started at 100
 # create line chart of data to compare behavior of stocks
 (securities_data/securities_data.iloc[0]*100).plot(figsize = (15,6))
-plt.savefig('Line-Chart_Compare_Behvior.pdf', 
+plt.savefig('Line-Chart_Compare_Behvior.png', 
     bbox_inches = 'tight', dpi=None, facecolor='w', edgecolor='b', 
     orientation='portrait', papertype=None, format=None, 
-    transparent=True, pad_inches=0.25, frameon=None)
+    transparent=False, pad_inches=0.25, frameon=None)
 plt.show()
 plt.close()
 
-##############################################################################
-#            Calcualting The Log Return of Portfolio Securities              #
-##############################################################################
-## log Rate of Return
-# To calcualte the log rate of return  we use todays
-# closing price divided by the previous
-# log(P_1/P_0)
 
-# calcualtes the log rate of return
-# creates a new column to store the simple_return
-# security_returns dataframe with the new column associated with the log rate of return
-# we shift the day using pandas.DataFrame.shit(# of lags), in our case
-# # of lags is 1, thus we are shifting the index by 1
-# Note there will be a nan value for the first value, since there is no lag for the
-# first day recorded
-# prints out the calcualted results
-def log_rate_of_return(dataframe):
-    returns = np.log((dataframe/dataframe.shift(1)))
-    print('\n{} simple_rate_of_return results:\n {}'
-          .format(dataframe.name, returns))
-    return returns
+# daily stock prices converted into daily returns
+returns = securities_data.pct_change()
 
-# calculate the securities log rate of return
-securities_returns = log_rate_of_return(securities_data)
+# calculate mean daily returns
+mean_daily_returns = returns.mean()
 
-# Roll Function, returns groupby object
-def rolling_func(dataframe, stacking_amount):
-    rolling_array = np.dstack([dataframe.values[i:i+stacking_amount, :] for i in range(len(dataframe.index) - stacking_amount + 1]).T
-        
+# covariance of daily returns
+cov_matrix = returns.cov()
+
+# set the number of the random portfolio weights runs to try
+number_of_portfolios = 30000
+
+# results, array to hold results
+# increase array size to hold weight values for each of the assets
+results = np.zeros((4+len(tickers)-1,number_of_portfolios))
 
 
+for i in range(number_of_portfolios):
+    # random weights selected
+    weights = np.array(np.random.random(len(tickers)))
+    # weight sum to 1
+    weights /= np.sum(weights)
+    
+    # portfolio return
+    portfolio_return = np.sum(mean_daily_returns * weights) * 252
+    
+    # calcualte portfolio volatility
+    portfolio_std_dev = np.sqrt(np.dot(weights.T, np.dot(cov_matrix, weights))) * np.sqrt(252)
+    
+    # results, array to store results
+    results[0,i] = portfolio_return
+    results[1,i] = portfolio_std_dev
+    
+    # store sharpe ratio, (return/volatility)
+    results[2, i] = results[0,i]/ results[1,i]
+    
+    # add results to array by iterating through weight vector
+    for x in range(len(weights)):
+        results[x+3, i]  = weights[x]
+    
+# results_df
+results_df = pd.DataFrame(results.T,columns=['ret','stdev','sharpe',tickers[0],tickers[1],tickers[2],tickers[3]])
+ 
+# locate position of portfolio with highest Sharpe Ratio
+max_sharpe_port = results_df.iloc[results_df['sharpe'].idxmax()]
+
+# locate positon of portfolio with minimum standard deviation
+min_vol_port = results_df.iloc[results_df['stdev'].idxmin()]
+ 
+#create scatter plot coloured by Sharpe Ratio
+plt.scatter(results_df.stdev,results_df.ret,c=results_df.sharpe,cmap='RdYlBu')
+plt.xlabel('Volatility')
+plt.ylabel('Returns')
+plt.title('Markowitz Efficient Frontier with Sharpe Ratio')
+plt.colorbar()
+#plot red star to highlight position of portfolio with highest Sharpe Ratio
+plt.scatter(max_sharpe_port[1],max_sharpe_port[0],marker=(5,1,0),color='r',s=1000)
+#plot green star to highlight position of minimum variance portfolio
+plt.scatter(min_vol_port[1],min_vol_port[0],marker=(5,1,0),color='g',s=1000)    
+plt.savefig('Markowitz-Efficient-Frontier-with-Sharpe-Ratio.png', 
+    bbox_inches = 'tight', dpi=None, facecolor='w', edgecolor='b', 
+    orientation='portrait', papertype=None, format=None, 
+    transparent=False, pad_inches=0.25, frameon=None)
+plt.show()
+plt.close()
