@@ -64,7 +64,7 @@ start_date = '2010-6-29'
 # tickers for stocks to be ustilized in this program
 # Apple Inc (AAPL), Microsoft (MSFT), Intel (INTL), Tesla Inc. (TSLA), 
 # SP500 market (^GSPC)
-tickers = ['AAPL', 'MSFT', 'INTL', 'TSLA']
+tickers = ['AAPL', 'INTL', 'MSFT', 'TSLA']
 
 # securites_data, pandas DataFrame to store stock data
 # initialized to enmtpy DataFrame
@@ -99,15 +99,18 @@ plt.savefig('Line-Chart_Compare_Behvior.png',
 plt.show()
 plt.close()
 
+# daily returns using log returns
+returns = np.log(securities_data/securities_data.shift(1))
 
-# daily stock prices converted into daily returns
-returns = securities_data.pct_change()
+# assume an average annual risk free rate over the period of 5%
+excess_daily_returns  = returns - 0.05/252
+
 
 # calculate mean daily returns
-mean_daily_returns = returns.mean()
+mean_excess_daily_returns = excess_daily_returns.mean()
 
 # covariance of daily returns
-cov_matrix = returns.cov()
+cov_matrix = excess_daily_returns.cov()
 
 # set the number of the random portfolio weights runs to try
 number_of_portfolios = 30000
@@ -124,7 +127,7 @@ for i in range(number_of_portfolios):
     weights /= np.sum(weights)
     
     # portfolio return
-    portfolio_return = np.sum(mean_daily_returns * weights) * 252
+    portfolio_return = np.sum(mean_excess_daily_returns * weights) * 252
     
     # calcualte portfolio volatility
     portfolio_std_dev = np.sqrt(np.dot(weights.T, np.dot(cov_matrix, weights))) * np.sqrt(252)
@@ -141,13 +144,13 @@ for i in range(number_of_portfolios):
         results[x+3, i]  = weights[x]
     
 # results_df
-results_df = pd.DataFrame(results.T,columns=['ret','stdev','sharpe',tickers[0],tickers[1],tickers[2],tickers[3]])
+results_df = pd.DataFrame(results.T,columns=['return','stdev','sharpe',tickers[0],tickers[1],tickers[2],tickers[3]])
  
 # locate position of portfolio with highest Sharpe Ratio
-max_sharpe_port = results_df.iloc[results_df['sharpe'].idxmax()]
+max_sharpe_portfolio = results_df.iloc[results_df['sharpe'].idxmax()]
 
 # locate positon of portfolio with minimum standard deviation
-min_vol_port = results_df.iloc[results_df['stdev'].idxmin()]
+min_volatility_portfolio = results_df.iloc[results_df['stdev'].idxmin()]
  
 #create scatter plot coloured by Sharpe Ratio
 plt.scatter(results_df.stdev,results_df.ret,c=results_df.sharpe,cmap='RdYlBu')
@@ -156,9 +159,9 @@ plt.ylabel('Returns')
 plt.title('Markowitz Efficient Frontier with Sharpe Ratio')
 plt.colorbar()
 #plot red star to highlight position of portfolio with highest Sharpe Ratio
-plt.scatter(max_sharpe_port[1],max_sharpe_port[0],marker=(5,1,0),color='r',s=1000)
+plt.scatter(max_sharpe_portfolio[1],max_sharpe_portfolio[0],marker=(5,1,0),color='r',s=1000)
 #plot green star to highlight position of minimum variance portfolio
-plt.scatter(min_vol_port[1],min_vol_port[0],marker=(5,1,0),color='g',s=1000)    
+plt.scatter(min_volatility_portfolio[1],min_volatility_portfolio[0],marker=(5,1,0),color='g',s=1000)    
 plt.savefig('Markowitz-Efficient-Frontier-with-Sharpe-Ratio.png', 
     bbox_inches = 'tight', dpi=None, facecolor='w', edgecolor='b', 
     orientation='portrait', papertype=None, format=None, 
