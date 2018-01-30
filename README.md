@@ -104,5 +104,24 @@ What this tells us is, that if we increase the increase the expected rate of ret
 ## Markowitz Efficient Fronteer with Sharpe Ratio Visualized
 <img src="Markowitz-Efficient-Frontier-with-Sharpe-Ratio.png">
 
+### Max Sharpe Portfolio
+* return    0.187455
+* stdev     0.202043
+* sharpe    0.927797
+* AAPL      0.371027
+* INTL      0.000026
+* MSFT      0.453355
+* TSLA      0.175593
+
+### Min Volatility Portfolio
+
+* return    0.152850
+* stdev     0.184558
+* sharpe    0.828197
+* AAPL      0.319417
+* INTL      0.183923
+* MSFT      0.460720
+* TSLA      0.035941
+
 <br><br>
 <a href="https://obrianbl.github.io/">Return to Main Page</a>
