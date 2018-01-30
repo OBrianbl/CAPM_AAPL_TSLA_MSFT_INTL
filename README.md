@@ -72,6 +72,47 @@ The is measure of market risk is one that cannot be avoid through diversificatio
 * <a href="https://www.codecogs.com/eqnedit.php?latex=\beta&space;=&space;1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\beta&space;=&space;1" title="\beta = 1" /></a>,  Asset is considered to perform the same as the market.
 * <a href="https://www.codecogs.com/eqnedit.php?latex=\beta&space;>&space;1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\beta&space;>&space;1" title="\beta > 1" /></a>,  Asset is considered to be aggressive, since they are riskier than the market. These stocks perform better than the market when the economy is doing well and loose more when the market is not doing well.
 
-*** Still in progress... check back later today for an update ***
+## The Capital Asset Pricing Model
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=r_i&space;=&space;r_f&space;&plus;&space;\beta_{iM}(r_M&space;-&space;r_f)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?r_i&space;=&space;r_f&space;&plus;&space;\beta_{iM}(r_M&space;-&space;r_f)" title="r_i = r_f + \beta_{iM}(r_M - r_f)" /></a>
+<br> 
+where 
+
+*  <a href="https://www.codecogs.com/eqnedit.php?latex=r_f" target="_blank"><img src="https://latex.codecogs.com/gif.latex?r_f" title="r_f" /></a> risk-free rate or bare minimum that an investor is willing to take on
+*  <a href="https://www.codecogs.com/eqnedit.php?latex=\beta_{iM}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\beta_{iM}" title="\beta_{iM}" /></a> beta between the asset and the market, the amount of risk the security bears regarding the market portfolio 
+*  <a href="https://www.codecogs.com/eqnedit.php?latex=r_m" target="_blank"><img src="https://latex.codecogs.com/gif.latex?r_m" title="r_m" /></a> expected reutnr of the market portfolio
+* <a href="https://www.codecogs.com/eqnedit.php?latex=r_M-r_f" target="_blank"><img src="https://latex.codecogs.com/gif.latex?r_M-r_f" title="r_M-r_f" /></a> is the equity premium component, which is the expected return of the market portfolio minus the risk-free rate
+
+## Applying the CAPM
+
+In real life, there does not exist an actual risk-free asset. Every asset contains risk, though some have realtively small risk compared to others. The closest we can have to a risk-free rate is the yield of a 10-year US government bond at 2.5%. Since we are applying this to US compaines, we will use the 2.5% for our risk free. Further, we will approximate the market portfolio with the S&P500, thus <a href="https://www.codecogs.com/eqnedit.php?latex=\beta&space;=&space;0.62" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\beta&space;=&space;0.62" title="\beta = 0.62" /></a>. The equity risk premiym as been historically between 4.5% and 5.5%, thus we will use 5% which is inbetween. 
+<br>
+
+Therefore, we have the following model:
+<br> 
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=r(i)&space;=&space;2.5\%&space;&plus;&space;0.62*5\%&space;=&space;5.6\%" target="_blank"><img src="https://latex.codecogs.com/gif.latex?r(i)&space;=&space;2.5\%&space;&plus;&space;0.62*5\%&space;=&space;5.6\%" title="r(i) = 2.5\% + 0.62*5\% = 5.6\%" /></a>
+<br>
+
+This 5.6% is the epected return an investor should expect given the risk that they are taking on. 
+
+<br>
+
+## Sharp Ratio
+
+A ratioal investor considers both risk and return. They want to maximize their return and minimize their risk. Thus, investors would want to be able to compare stocks in terms of risk-return performance. This is how William Sharpe developed the Sharpe Ration.
+Mathematically the Sharpe ratio can be expressed as: 
+<br>
+<a href="https://www.codecogs.com/eqnedit.php?latex=\frac{r_i-r_f}{\sigma_i}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{r_i-r_f}{\sigma_i}" title="\frac{r_i-r_f}{\sigma_i}" /></a>
+
+* <a href="https://www.codecogs.com/eqnedit.php?latex=r_f" target="_blank"><img src="https://latex.codecogs.com/gif.latex?r_f" title="r_f" /></a> - risk-free rate
+* <a href="https://www.codecogs.com/eqnedit.php?latex=r_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?r_i" title="r_i" /></a> - rate of return of the stock "i"
+* <a href="https://www.codecogs.com/eqnedit.php?latex=\sigma_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\sigma_i" title="\sigma_i" /></a> - standard deviation of the stock "i"
+* <a href="https://www.codecogs.com/eqnedit.php?latex=r_i-r_f" target="_blank"><img src="https://latex.codecogs.com/gif.latex?r_i-r_f" title="r_i-r_f" /></a> - excess return of stock "i"
+
+What this tells us is, that if we increase the increase the expected rate of return the stocks Sharpe ratio also increases. Further the stocks standard deviation and the Sharpe ratio have an inverse relationship, meaning that if the standard deviation increases the Sharpe ration decreases.  This allows us to compare assets vs assets and invesment portfolios vs portfolios quickly. Thus, we can produce the Shapre Captial Market Line. 
+
+
+
 <br><br>
 <a href="https://obrianbl.github.io/">Return to Main Page</a>
